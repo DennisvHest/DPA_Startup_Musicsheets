@@ -103,6 +103,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Domain\Bar.cs" />
+    <Compile Include="Domain\MusicalSequence.cs" />
+    <Compile Include="Domain\MusicalSymbolDuration.cs" />
+    <Compile Include="Domain\MusicalSymbol.cs" />
+    <Compile Include="Domain\Note.cs" />
+    <Compile Include="Domain\Rest.cs" />
+    <Compile Include="IO\MidiSequenceReader.cs" />
+    <Compile Include="IO\SequenceReader.cs" />
     <Compile Include="Managers\MidiToLilyHelper.cs" />
     <Compile Include="Managers\MusicLoader.cs" />
     <Compile Include="Models\LilypondToken.cs" />

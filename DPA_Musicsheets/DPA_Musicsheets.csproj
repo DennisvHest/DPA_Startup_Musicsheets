@@ -109,7 +109,13 @@
     <Compile Include="Domain\MusicalSymbol.cs" />
     <Compile Include="Domain\Note.cs" />
     <Compile Include="Domain\Rest.cs" />
-    <Compile Include="IO\MidiSequenceReader.cs" />
+    <Compile Include="Domain\TimeSignature.cs" />
+    <Compile Include="IO\Midi\IMidiMessage.cs" />
+    <Compile Include="IO\Midi\MidiMessage.cs" />
+    <Compile Include="IO\Midi\MidiNoteOnMessage.cs" />
+    <Compile Include="IO\Midi\MidiSequenceReader.cs" />
+    <Compile Include="IO\Midi\MidiTempoMessage.cs" />
+    <Compile Include="IO\Midi\MidiTimeSignatureMessage.cs" />
     <Compile Include="IO\SequenceReader.cs" />
     <Compile Include="Managers\MidiToLilyHelper.cs" />
     <Compile Include="Managers\MusicLoader.cs" />

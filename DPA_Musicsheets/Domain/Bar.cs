@@ -4,6 +4,6 @@ namespace DPA_Musicsheets.Domain
 {
     public class Bar
     {
-        public IEnumerable<MusicalSymbol> MusicalSymbols { get; set; }
+        public IList<MusicalSymbol> MusicalSymbols { get; set; }
     }
 }

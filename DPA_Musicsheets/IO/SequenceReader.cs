@@ -2,8 +2,8 @@
 
 namespace DPA_Musicsheets.IO
 {
-    public interface SequenceReader
+    public abstract class SequenceReader
     {
-        MusicalSequence Sequence { get; set; }
+        public MusicalSequence Sequence { get; set; }
     }
 }

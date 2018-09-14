@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.Domain
 {
-    public class TimeSignature
+    public class TimeSignature : MusicalSymbol
     {
         public int BeatsPerBar { get; set; }
         public int BeatUnit { get; set; }

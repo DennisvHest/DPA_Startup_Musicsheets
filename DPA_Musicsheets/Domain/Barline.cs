@@ -2,8 +2,7 @@
 
 namespace DPA_Musicsheets.Domain
 {
-    public class Bar
+    public class Barline : MusicalSymbol
     {
-        public IList<MusicalSymbol> MusicalSymbols { get; set; }
     }
 }

@@ -5,5 +5,10 @@ namespace DPA_Musicsheets.IO
     public abstract class SequenceReader
     {
         public MusicalSequence Sequence { get; set; }
+
+        protected SequenceReader()
+        {
+            Sequence = new MusicalSequence();
+        }
     }
 }

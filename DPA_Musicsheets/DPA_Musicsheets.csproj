@@ -103,19 +103,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Domain\Bar.cs" />
+    <Compile Include="Domain\Barline.cs" />
     <Compile Include="Domain\MusicalSequence.cs" />
     <Compile Include="Domain\MusicalSymbolDuration.cs" />
     <Compile Include="Domain\MusicalSymbol.cs" />
     <Compile Include="Domain\Note.cs" />
     <Compile Include="Domain\Rest.cs" />
     <Compile Include="Domain\TimeSignature.cs" />
-    <Compile Include="IO\Midi\IMidiMessage.cs" />
-    <Compile Include="IO\Midi\MidiMessage.cs" />
-    <Compile Include="IO\Midi\MidiNoteOnMessage.cs" />
     <Compile Include="IO\Midi\MidiSequenceReader.cs" />
-    <Compile Include="IO\Midi\MidiTempoMessage.cs" />
-    <Compile Include="IO\Midi\MidiTimeSignatureMessage.cs" />
     <Compile Include="IO\SequenceReader.cs" />
     <Compile Include="Managers\MidiToLilyHelper.cs" />
     <Compile Include="Managers\MusicLoader.cs" />

@@ -12,6 +12,16 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DPA_Musicsheets.Domain;
+using DPA_Musicsheets.IO;
+using DPA_Musicsheets.IO.Midi;
+using Barline = PSAMControlLibrary.Barline;
+using IMidiMessage = Sanford.Multimedia.Midi.IMidiMessage;
+using MusicalSymbol = PSAMControlLibrary.MusicalSymbol;
+using MusicalSymbolDuration = PSAMControlLibrary.MusicalSymbolDuration;
+using Note = PSAMControlLibrary.Note;
+using Rest = PSAMControlLibrary.Rest;
+using TimeSignature = PSAMControlLibrary.TimeSignature;
 
 namespace DPA_Musicsheets.Managers
 {
@@ -48,14 +58,12 @@ namespace DPA_Musicsheets.Managers
         /// <param name="fileName"></param>
         public void OpenFile(string fileName)
         {
+            MusicalSequence sequence = null;
+
             if (Path.GetExtension(fileName).EndsWith(".mid"))
             {
-                MidiSequence = new Sequence();
-                MidiSequence.Load(fileName);
-
-                MidiPlayerViewModel.MidiSequence = MidiSequence;
-                this.LilypondText = LoadMidiIntoLilypond(MidiSequence);
-                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
+                SequenceReader midiReader = new MidiSequenceReader(fileName);
+                sequence = midiReader.Sequence;
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
@@ -73,7 +81,7 @@ namespace DPA_Musicsheets.Managers
                 throw new NotSupportedException($"File extension {Path.GetExtension(fileName)} is not supported.");
             }
 
-            LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
+            //LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
         }
 
         /// <summary>

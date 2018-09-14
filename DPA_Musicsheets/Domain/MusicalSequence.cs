@@ -8,8 +8,12 @@ namespace DPA_Musicsheets.Domain
 {
     public class MusicalSequence
     {
-        public TimeSignature TimeSignature { get; set; }
         public int BeatsPerMinute { get; set; }
-        public IEnumerable<Bar> Bars { get; set; }
+        public List<MusicalSymbol> Symbols { get; set; }
+
+        public MusicalSequence()
+        {
+            Symbols = new List<MusicalSymbol>();
+        }
     }
 }

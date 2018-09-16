@@ -70,25 +70,25 @@ namespace DPA_Musicsheets.ViewModels
         public ICommand TextChangedCommand => new RelayCommand<TextChangedEventArgs>((args) =>
         {
             // If we were typing, we need to do things.
-            if (!_textChangedByLoad)
-            {
-                _waitingForRender = true;
-                _lastChange = DateTime.Now;
-
-                _mainViewModel.CurrentState = "Rendering...";
-
-                Task.Delay(MILLISECONDS_BEFORE_CHANGE_HANDLED).ContinueWith((task) =>
-                {
-                    if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
-                    {
-                        _waitingForRender = false;
-                        UndoCommand.RaiseCanExecuteChanged();
-
-                        _musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
-                        _mainViewModel.CurrentState = "";
-                    }
-                }, TaskScheduler.FromCurrentSynchronizationContext()); // Request from main thread.
-            }
+//            if (!_textChangedByLoad)
+//            {
+//                _waitingForRender = true;
+//                _lastChange = DateTime.Now;
+//
+//                _mainViewModel.CurrentState = "Rendering...";
+//
+//                Task.Delay(MILLISECONDS_BEFORE_CHANGE_HANDLED).ContinueWith((task) =>
+//                {
+//                    if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
+//                    {
+//                        _waitingForRender = false;
+//                        UndoCommand.RaiseCanExecuteChanged();
+//
+//                        _musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
+//                        _mainViewModel.CurrentState = "";
+//                    }
+//                }, TaskScheduler.FromCurrentSynchronizationContext()); // Request from main thread.
+//            }
         });
 
         #region Commands for buttons like Undo, Redo and SaveAs

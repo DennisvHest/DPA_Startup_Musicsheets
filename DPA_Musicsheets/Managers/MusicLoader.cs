@@ -64,6 +64,13 @@ namespace DPA_Musicsheets.Managers
             {
                 SequenceReader midiReader = new MidiSequenceReader(fileName);
                 sequence = midiReader.Sequence;
+
+                MidiSequence = new Sequence();
+                MidiSequence.Load(fileName);
+
+                MidiPlayerViewModel.MidiSequence = MidiSequence;
+                this.LilypondText = LoadMidiIntoLilypond(MidiSequence);
+                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
@@ -81,7 +88,7 @@ namespace DPA_Musicsheets.Managers
                 throw new NotSupportedException($"File extension {Path.GetExtension(fileName)} is not supported.");
             }
 
-            //LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
+            LoadLilypondIntoWpfStaffsAndMidi(LilypondText, sequence);
         }
 
         /// <summary>
@@ -90,18 +97,24 @@ namespace DPA_Musicsheets.Managers
         /// TODO: Create our own domain classes to be independent of external libraries/languages.
         /// </summary>
         /// <param name="content"></param>
-        public void LoadLilypondIntoWpfStaffsAndMidi(string content)
+        public void LoadLilypondIntoWpfStaffsAndMidi(string content, MusicalSequence sequence)
         {
             LilypondText = content;
             content = content.Trim().ToLower().Replace("\r\n", " ").Replace("\n", " ").Replace("  ", " ");
             LinkedList<LilypondToken> tokens = GetTokensFromLilypond(content);
             WPFStaffs.Clear();
 
-            WPFStaffs.AddRange(GetStaffsFromTokens(tokens));
+            StaffBuilder staffBuilder = new PsamStaffBuilder();
+            StaffLoader staffLoader = new StaffLoader(staffBuilder);
+
+            staffLoader.LoadStaffs(sequence.Symbols);
+
+            //WPFStaffs.AddRange(GetStaffsFromTokens(tokens));
+            WPFStaffs.AddRange(staffLoader.Symbols);
             this.StaffsViewModel.SetStaffs(this.WPFStaffs);
 
-            MidiSequence = GetSequenceFromWPFStaffs();
-            MidiPlayerViewModel.MidiSequence = MidiSequence;
+//            MidiSequence = GetSequenceFromWPFStaffs();
+//            MidiPlayerViewModel.MidiSequence = MidiSequence;
         }
 
         #region Midi loading (loads midi to lilypond)

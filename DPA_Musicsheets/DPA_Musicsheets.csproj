@@ -112,8 +112,15 @@
     <Compile Include="Domain\Rest.cs" />
     <Compile Include="Domain\TimeSignature.cs" />
     <Compile Include="IO\BarLineEvent.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\Expression.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\LilypondContext.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\LilypondSection.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\NoteExpression.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\RelativeExpression.cs" />
+    <Compile Include="IO\Lilypond\LilypondNoteEvent.cs" />
     <Compile Include="IO\Lilypond\LilypondRepeatEvent.cs" />
     <Compile Include="IO\Lilypond\LilypondSectionEndEvent.cs" />
+    <Compile Include="IO\Lilypond\LilypondSectionStartEvent.cs" />
     <Compile Include="IO\Lilypond\LilypondSequenceReader.cs" />
     <Compile Include="IO\Midi\MidiBarLineEvent.cs" />
     <Compile Include="IO\Midi\MidiNoteEvent.cs" />

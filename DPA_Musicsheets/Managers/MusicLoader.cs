@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DPA_Musicsheets.Domain;
 using DPA_Musicsheets.IO;
+using DPA_Musicsheets.IO.Lilypond;
 using DPA_Musicsheets.IO.Midi;
 using Barline = PSAMControlLibrary.Barline;
 using IMidiMessage = Sanford.Multimedia.Midi.IMidiMessage;
@@ -74,14 +75,15 @@ namespace DPA_Musicsheets.Managers
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
-                StringBuilder sb = new StringBuilder();
-                foreach (var line in File.ReadAllLines(fileName))
-                {
-                    sb.AppendLine(line);
-                }
-                
-                this.LilypondText = sb.ToString();
-                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
+//                StringBuilder sb = new StringBuilder();
+//                foreach (var line in File.ReadAllLines(fileName))
+//                {
+//                    sb.AppendLine(line);
+//                }
+//                
+//                this.LilypondText = sb.ToString();
+//                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
+                SequenceReader lilyReader = new LilypondSequenceReader(fileName);
             }
             else
             {

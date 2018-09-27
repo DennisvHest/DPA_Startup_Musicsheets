@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using DPA_Musicsheets.Domain;
 
 namespace DPA_Musicsheets.IO.Lilypond.Interpreter
 {
     public class LilypondContext
     {
-        public int StartPitch { get; set; }
-        public int octaveChange { get; set; }
+        public MusicalSequence Sequence { get; set; }
+        public int RelativePitch { get; set; }
+        public int RelativeOctave { get; set; }
+        public int CurrentOctave { get; set; }
+        public int? PreviousNotePitch { get; set; }
+        public char? PreviousNoteChar { get; set; }
+
+        public LilypondContext()
+        {
+            Sequence = new MusicalSequence
+            {
+                Symbols = new List<MusicalSymbol>()
+            };
+            RelativeOctave = 5;
+            CurrentOctave = RelativeOctave;
+        }
     }
 }

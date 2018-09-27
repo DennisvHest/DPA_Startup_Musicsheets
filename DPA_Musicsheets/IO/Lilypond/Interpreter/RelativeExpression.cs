@@ -7,7 +7,7 @@
 
         public RelativeExpression(char startPitch, string octaveChange)
         {
-            _startPitch = LilypondSequenceReader.NotesOrder.IndexOf(startPitch);
+            _startPitch = LilypondSequenceReader.NotesOrder.IndexOf(startPitch) + 1;
 
             foreach (char character in octaveChange)
             {
@@ -21,8 +21,8 @@
 
         public override void Interpret(LilypondContext context)
         {
-            context.StartPitch = _startPitch;
-            context.octaveChange = _octaveChange;
+            context.RelativePitch = _startPitch;
+            context.RelativeOctave = _octaveChange;
 
             foreach (Expression expression in ChildExpressions)
             {

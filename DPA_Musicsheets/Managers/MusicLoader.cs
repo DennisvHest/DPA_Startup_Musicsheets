@@ -75,15 +75,16 @@ namespace DPA_Musicsheets.Managers
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
-//                StringBuilder sb = new StringBuilder();
-//                foreach (var line in File.ReadAllLines(fileName))
-//                {
-//                    sb.AppendLine(line);
-//                }
-//                
-//                this.LilypondText = sb.ToString();
-//                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
+                StringBuilder sb = new StringBuilder();
+                foreach (var line in File.ReadAllLines(fileName))
+                {
+                    sb.AppendLine(line);
+                }
+                
+                this.LilypondText = sb.ToString();
+                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
                 SequenceReader lilyReader = new LilypondSequenceReader(fileName);
+                sequence = lilyReader.Sequence;
             }
             else
             {

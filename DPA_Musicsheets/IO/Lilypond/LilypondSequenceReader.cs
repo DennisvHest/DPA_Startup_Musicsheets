@@ -21,7 +21,7 @@ namespace DPA_Musicsheets.IO.Lilypond
                 sb.AppendLine(line);
             }
 
-            string[] lilypondText = sb.ToString().Split(' ').Where(item => item.Length > 0).ToArray();
+            string[] lilypondText = sb.ToString().Split().Where(item => item.Length > 0).ToArray();
 
             LilypondContext context = new LilypondContext();
             Stack<LilypondSection> sections = new Stack<LilypondSection>();
@@ -34,7 +34,7 @@ namespace DPA_Musicsheets.IO.Lilypond
                     case "\\relative":
                         // New relative section start with a startPitch and an ocatveChange
                         RelativeExpression relativeExpression = new RelativeExpression(lilypondText[i + 1][0],
-                            lilypondText[i + 1].Skip(1).ToString());
+                            string.Concat(lilypondText[i + 1].Skip(1)));
 
                         sections.Push(relativeExpression);
 
@@ -54,7 +54,9 @@ namespace DPA_Musicsheets.IO.Lilypond
                 }
             }
 
-            var asdf = true;
+            rootSection.Interpret(context);
+
+            Sequence = context.Sequence;
         }
 
         private static LinkedList<LilypondToken> GetTokensFromLilypond(string content)

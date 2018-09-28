@@ -20,6 +20,9 @@ namespace DPA_Musicsheets.Managers
             {
                 switch (musicalSymbol)
                 {
+                    case Clef clef:
+                        _staffBuilder.AddSymbol(clef);
+                        break;
                     case TimeSignature timeSignature:
                         _staffBuilder.AddSymbol(timeSignature);
                         break;

@@ -14,11 +14,7 @@ namespace DPA_Musicsheets.IO.Midi
             {
                 byte[] timeSignatureBytes = _midiTimeSignatureMessage.GetBytes();
 
-                return new TimeSignature
-                {
-                    BeatUnit = timeSignatureBytes[0],
-                    BeatsPerBar = (uint)(1 / Math.Pow(timeSignatureBytes[1], -2))
-                };
+                return new TimeSignature(timeSignatureBytes[0], (uint) (1 / Math.Pow(timeSignatureBytes[1], -2)));
             }
         }
 

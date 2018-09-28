@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using DPA_Musicsheets.Domain;
 using DPA_Musicsheets.IO.Lilypond.Interpreter;
 using DPA_Musicsheets.Models;
 
@@ -43,18 +44,25 @@ namespace DPA_Musicsheets.IO.Lilypond
 
                         i += 2;
                         break;
-                    case "}":
-                        // Section has ended. It is no longer the current section, so pop it from the stack
-                        sections.Pop();
+                    case "\\clef":
+                        sections.Peek().ChildExpressions.Add(new ClefExpression(lilypondText[i + 1]));
+                        i++;
                         break;
-                    default:
-                        // It is a note
-                        sections.Peek().ChildExpressions.Add(new NoteExpression(lilypondText[i][0], int.Parse(lilypondText[i][1].ToString())));
+                    case "\\time":
+                        sections.Peek().ChildExpressions.Add(new TimeSignatureExpression(lilypondText[i + 1]));
+                        i++;
                         break;
+                    // Section has ended. It is no longer the current section, so pop it from the stack
+                    case "}": sections.Pop(); break;
+                    // It is a note
+                    default: sections.Peek().ChildExpressions.Add(new NoteExpression(lilypondText[i])); break;
                 }
             }
 
             rootSection.Interpret(context);
+
+            if (!context.ClefAdded)
+                context.Sequence.Symbols.Add(new Clef(ClefType.GClef));
 
             Sequence = context.Sequence;
         }

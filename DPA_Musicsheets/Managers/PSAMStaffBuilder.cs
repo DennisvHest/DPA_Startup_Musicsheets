@@ -6,9 +6,9 @@ namespace DPA_Musicsheets.Managers
 {
     public class PsamStaffBuilder : StaffBuilder
     {
-        public PsamStaffBuilder()
+        public override void AddSymbol(Domain.Clef clef)
         {
-            Symbols.Add(new Clef(ClefType.GClef, 2));
+            Symbols.Add(new Clef((ClefType)clef.ClefType, 2));
         }
 
         public override void AddSymbol(Domain.TimeSignature timeSignature)

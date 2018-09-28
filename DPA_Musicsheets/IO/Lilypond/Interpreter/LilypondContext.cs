@@ -7,10 +7,9 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
     {
         public MusicalSequence Sequence { get; set; }
         public int RelativePitch { get; set; }
-        public int RelativeOctave { get; set; }
         public int CurrentOctave { get; set; }
         public int? PreviousNotePitch { get; set; }
-        public char? PreviousNoteChar { get; set; }
+        public bool ClefAdded { get; set; }
 
         public LilypondContext()
         {
@@ -18,8 +17,8 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
             {
                 Symbols = new List<MusicalSymbol>()
             };
-            RelativeOctave = 5;
-            CurrentOctave = RelativeOctave;
+
+            CurrentOctave = 4;
         }
     }
 }

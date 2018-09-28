@@ -22,7 +22,7 @@
         public override void Interpret(LilypondContext context)
         {
             context.RelativePitch = _startPitch;
-            context.RelativeOctave = _octaveChange;
+            context.CurrentOctave += _octaveChange;
 
             foreach (Expression expression in ChildExpressions)
             {

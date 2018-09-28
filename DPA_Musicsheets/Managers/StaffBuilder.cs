@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using PSAMControlLibrary;
+using Clef = DPA_Musicsheets.Domain.Clef;
 
 namespace DPA_Musicsheets.Managers
 {
@@ -16,6 +13,7 @@ namespace DPA_Musicsheets.Managers
             Symbols = new List<MusicalSymbol>();
         }
 
+        public abstract void AddSymbol(Clef clef);
         public abstract void AddSymbol(Domain.TimeSignature timeSignature);
         public abstract void AddSymbol(Domain.Barline barLine);
         public abstract void AddSymbol(Domain.Note note);

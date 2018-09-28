@@ -10,5 +10,11 @@ namespace DPA_Musicsheets.Domain
     {
         public uint BeatsPerBar { get; set; }
         public uint BeatUnit { get; set; }
+
+        public TimeSignature(uint beatUnit, uint beatsPerBar)
+        {
+            BeatsPerBar = beatsPerBar;
+            BeatUnit = beatUnit;
+        }
     }
 }

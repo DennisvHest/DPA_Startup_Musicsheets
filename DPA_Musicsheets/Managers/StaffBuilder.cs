@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
-using PSAMControlLibrary;
-using Clef = DPA_Musicsheets.Domain.Clef;
+using DPA_Musicsheets.Domain;
 
 namespace DPA_Musicsheets.Managers
 {
     public abstract class StaffBuilder
     {
-        public List<MusicalSymbol> Symbols { get; }
+        public List<PSAMControlLibrary.MusicalSymbol> Symbols { get; }
 
         protected StaffBuilder()
         {
-            Symbols = new List<MusicalSymbol>();
+            Symbols = new List<PSAMControlLibrary.MusicalSymbol>();
         }
 
         public abstract void AddSymbol(Clef clef);
-        public abstract void AddSymbol(Domain.TimeSignature timeSignature);
-        public abstract void AddSymbol(Domain.Barline barLine);
-        public abstract void AddSymbol(Domain.Note note);
+        public abstract void AddSymbol(TimeSignature timeSignature);
+        public abstract void AddSymbol(Barline barLine);
+        public abstract void AddSymbol(INote note);
     }
 }

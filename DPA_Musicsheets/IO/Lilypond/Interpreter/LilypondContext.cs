@@ -15,7 +15,7 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
         {
             Sequence = new MusicalSequence
             {
-                Symbols = new List<MusicalSymbol>()
+                Symbols = new List<IMusicalSymbol>()
             };
 
             CurrentOctave = 4;

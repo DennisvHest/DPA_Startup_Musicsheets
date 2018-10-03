@@ -9,11 +9,11 @@ namespace DPA_Musicsheets.Domain
     public class MusicalSequence
     {
         public int BeatsPerMinute { get; set; }
-        public List<MusicalSymbol> Symbols { get; set; }
+        public List<IMusicalSymbol> Symbols { get; set; }
 
         public MusicalSequence()
         {
-            Symbols = new List<MusicalSymbol>();
+            Symbols = new List<IMusicalSymbol>();
         }
     }
 }

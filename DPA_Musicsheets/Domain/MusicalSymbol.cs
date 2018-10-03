@@ -1,9 +1,11 @@
 ﻿namespace DPA_Musicsheets.Domain
 {
-    public abstract class MusicalSymbol
+    public interface IMusicalSymbol
     {
-        public MusicalSymbolDuration Duration { get; set; }
+    }
 
+    public abstract class MusicalSymbol : IMusicalSymbol
+    {
         protected MusicalSymbol() { }
     }
 }

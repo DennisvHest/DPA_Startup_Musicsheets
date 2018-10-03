@@ -14,9 +14,9 @@ namespace DPA_Musicsheets.Managers
             _staffBuilder = staffBuilder;
         }
 
-        public void LoadStaffs(IEnumerable<MusicalSymbol> symbols)
+        public void LoadStaffs(IEnumerable<IMusicalSymbol> symbols)
         {
-            foreach (MusicalSymbol musicalSymbol in symbols)
+            foreach (IMusicalSymbol musicalSymbol in symbols)
             {
                 switch (musicalSymbol)
                 {
@@ -29,7 +29,7 @@ namespace DPA_Musicsheets.Managers
                     case Barline barLine:
                         _staffBuilder.AddSymbol(barLine);
                         break;
-                    case Note note:
+                    case INote note:
                         _staffBuilder.AddSymbol(note);
                         break;
                 }

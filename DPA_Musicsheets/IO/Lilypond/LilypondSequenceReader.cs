@@ -54,6 +54,7 @@ namespace DPA_Musicsheets.IO.Lilypond
                         break;
                     // Section has ended. It is no longer the current section, so pop it from the stack
                     case "}": sections.Pop(); break;
+                    case "|": sections.Peek().ChildExpressions.Add(new BarlineExpression()); break;
                     // It is a note
                     default: sections.Peek().ChildExpressions.Add(new NoteExpression(lilypondText[i])); break;
                 }
@@ -62,7 +63,7 @@ namespace DPA_Musicsheets.IO.Lilypond
             rootSection.Interpret(context);
 
             if (!context.ClefAdded)
-                context.Sequence.Symbols.Add(new Clef(ClefType.GClef));
+                context.Sequence.Symbols.Insert(0, new Clef(ClefType.GClef));
 
             Sequence = context.Sequence;
         }

@@ -13,11 +13,18 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
         private readonly int _notePitch;
         private readonly int _octaveChange;
         private readonly int _length;
+        private readonly bool _linkingNote;
         private readonly List<INote> _noteProperties;
 
         public NoteExpression(string noteExpression)
         {
             _noteName = noteExpression[0];
+
+            // Note/Rest length
+            _length = int.Parse(Regex.Match(noteExpression, @"\d+").Value);
+
+            if (_noteName == 'r')
+                return; // Note is a Rest, we don't have to parse pitch, decorations, etc.
 
             // Pitch
             _notePitch = LilypondSequenceReader.NotesOrder.IndexOf(_noteName) * 2;
@@ -48,12 +55,19 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
             _octaveChange += noteExpression.Count(c => c == '\'');
             _octaveChange -= noteExpression.Count(c => c == ',');
 
-            // Note length
-            _length = int.Parse(Regex.Match(noteExpression, @"\d+").Value);
+            // Note linking
+            _linkingNote = noteExpression.EndsWith("~");
         }
 
         public override void Interpret(LilypondContext context)
         {
+            if (_noteName == 'r')
+            {
+                // This note is a rest
+                context.Sequence.Symbols.Add(new Rest { Duration = (MusicalSymbolDuration)_length });
+                return;
+            }
+
             // Raise or lower the current octave based on the distance between the previous/current note
             if (context.PreviousNotePitch != null)
             {
@@ -66,7 +80,7 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
                     context.CurrentOctave--;
                 }
             }
-                
+
             context.CurrentOctave += _octaveChange;
 
             // Link the note and the note decorations
@@ -84,11 +98,28 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
                 }
             }
 
+            // Linking notes
+            NoteTieType tieType = NoteTieType.None;
+
+            if (context.LinkingNote && _linkingNote)
+            {
+                tieType = NoteTieType.StopAndStartAnother;
+            } else if (context.LinkingNote)
+            {
+                tieType = NoteTieType.Stop;
+            } else if (_linkingNote)
+            {
+                tieType = NoteTieType.Start;
+            }
+
+            context.PreviousTieType = tieType;
+
             INote note = new Note
             {
                 NoteName = _noteName,
                 MidiPitch = _notePitch + context.CurrentOctave * 12,
-                Duration = (MusicalSymbolDuration) _length
+                Duration = (MusicalSymbolDuration)_length,
+                NoteTieType = tieType
             };
 
             _noteProperties.Add(note);

@@ -114,6 +114,7 @@
     <Compile Include="Domain\MusicalSymbol.cs" />
     <Compile Include="Domain\Note.cs" />
     <Compile Include="Domain\NoteDecoration.cs" />
+    <Compile Include="Domain\NoteTieType.cs" />
     <Compile Include="Domain\RepeatType.cs" />
     <Compile Include="Domain\Rest.cs" />
     <Compile Include="Domain\TimeSignature.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="IO\Lilypond\Interpreter\LilypondSection.cs" />
     <Compile Include="IO\Lilypond\Interpreter\NoteExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\RelativeExpression.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\TempoExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\TimeSignatureExpression.cs" />
     <Compile Include="IO\Lilypond\LilypondSequenceReader.cs" />
     <Compile Include="IO\Midi\MidiBarLineEvent.cs" />

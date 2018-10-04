@@ -16,5 +16,6 @@ namespace DPA_Musicsheets.Managers
         public abstract void AddSymbol(TimeSignature timeSignature);
         public abstract void AddSymbol(Barline barLine);
         public abstract void AddSymbol(INote note);
+        public abstract void AddSymbol(Rest rest);
     }
 }

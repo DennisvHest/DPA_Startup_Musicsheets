@@ -48,6 +48,10 @@ namespace DPA_Musicsheets.IO.Lilypond
                         sections.Peek().ChildExpressions.Add(new ClefExpression(lilypondText[i + 1]));
                         i++;
                         break;
+                    case "\\tempo":
+                        sections.Peek().ChildExpressions.Add(new TempoExpression(lilypondText[i + 3]));
+                        i += 3;
+                        break;
                     case "\\time":
                         sections.Peek().ChildExpressions.Add(new TimeSignatureExpression(lilypondText[i + 1]));
                         i++;

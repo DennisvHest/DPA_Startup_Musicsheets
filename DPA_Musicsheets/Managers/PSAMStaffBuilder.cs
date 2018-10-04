@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿
+
+using System.Collections.Generic;
 using DPA_Musicsheets.Domain;
 using PSAMControlLibrary;
 using Barline = PSAMControlLibrary.Barline;
@@ -6,6 +8,7 @@ using Clef = PSAMControlLibrary.Clef;
 using ClefType = PSAMControlLibrary.ClefType;
 using MusicalSymbolDuration = PSAMControlLibrary.MusicalSymbolDuration;
 using Note = PSAMControlLibrary.Note;
+using NoteTieType = PSAMControlLibrary.NoteTieType;
 using TimeSignature = PSAMControlLibrary.TimeSignature;
 
 namespace DPA_Musicsheets.Managers
@@ -33,11 +36,16 @@ namespace DPA_Musicsheets.Managers
 
             Note staffNote = new Note(note.NoteName.ToString().ToUpper(),
                 note.NoteAlteration, octave, (MusicalSymbolDuration) note.Duration, NoteStemDirection.Up,
-                NoteTieType.None, new List<NoteBeamType>() {NoteBeamType.Single});
+                (NoteTieType) note.NoteTieType, new List<NoteBeamType>() {NoteBeamType.Single});
 
             staffNote.NumberOfDots = note.Dots;
 
             Symbols.Add(staffNote);
+        }
+
+        public override void AddSymbol(Domain.Rest rest)
+        {
+            Symbols.Add(new PSAMControlLibrary.Rest((MusicalSymbolDuration)rest.Duration));
         }
     }
 }

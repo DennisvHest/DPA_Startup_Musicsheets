@@ -9,7 +9,11 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
         public int RelativePitch { get; set; }
         public int CurrentOctave { get; set; }
         public int? PreviousNotePitch { get; set; }
+        public NoteTieType PreviousTieType { get; set; }
         public bool ClefAdded { get; set; }
+
+        public bool LinkingNote => PreviousTieType == NoteTieType.Start ||
+                                   PreviousTieType == NoteTieType.StopAndStartAnother;
 
         public LilypondContext()
         {

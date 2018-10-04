@@ -32,6 +32,9 @@ namespace DPA_Musicsheets.Managers
                     case INote note:
                         _staffBuilder.AddSymbol(note);
                         break;
+                    case Rest rest:
+                        _staffBuilder.AddSymbol(rest);
+                        break;
                 }
             }
         }

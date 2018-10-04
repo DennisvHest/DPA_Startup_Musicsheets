@@ -23,6 +23,7 @@ using IMidiMessage = Sanford.Multimedia.Midi.IMidiMessage;
 using MusicalSymbol = PSAMControlLibrary.MusicalSymbol;
 using MusicalSymbolDuration = PSAMControlLibrary.MusicalSymbolDuration;
 using Note = PSAMControlLibrary.Note;
+using NoteTieType = PSAMControlLibrary.NoteTieType;
 using Rest = PSAMControlLibrary.Rest;
 using TimeSignature = PSAMControlLibrary.TimeSignature;
 

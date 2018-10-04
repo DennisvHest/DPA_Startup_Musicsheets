@@ -9,5 +9,6 @@
         public int MidiPitch => Note.MidiPitch;
         public MusicalSymbolDuration Duration => Note.Duration;
         public virtual int Dots => 0;
+        public NoteTieType NoteTieType => Note.NoteTieType;
     }
 }

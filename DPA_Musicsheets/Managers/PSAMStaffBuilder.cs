@@ -27,7 +27,7 @@ namespace DPA_Musicsheets.Managers
 
         public override void AddSymbol(Domain.Barline barLine)
         {
-            Symbols.Add(new Barline());
+            Symbols.Add(new Barline { RepeatSign = (RepeatSignType)barLine.RepeatType, AlternateRepeatGroup = barLine.AlternateRepeatGroup });
         }
 
         public override void AddSymbol(INote note)
@@ -35,8 +35,8 @@ namespace DPA_Musicsheets.Managers
             int octave = note.MidiPitch / 12 - 1;
 
             Note staffNote = new Note(note.NoteName.ToString().ToUpper(),
-                note.NoteAlteration, octave, (MusicalSymbolDuration) note.Duration, NoteStemDirection.Up,
-                (NoteTieType) note.NoteTieType, new List<NoteBeamType>() {NoteBeamType.Single});
+                note.NoteAlteration, octave, (MusicalSymbolDuration)note.Duration, NoteStemDirection.Up,
+                (NoteTieType)note.NoteTieType, new List<NoteBeamType>() { NoteBeamType.Single });
 
             staffNote.NumberOfDots = note.Dots;
 

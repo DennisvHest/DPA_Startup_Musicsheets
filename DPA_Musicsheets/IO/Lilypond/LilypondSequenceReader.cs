@@ -44,20 +44,48 @@ namespace DPA_Musicsheets.IO.Lilypond
 
                         i += 2;
                         break;
+                    case "\\repeat":
+                        RepeatExpression repeatExpression = new RepeatExpression();
+
+                        sections.Peek()?.ChildExpressions.Add(repeatExpression);
+                        sections.Push(repeatExpression);
+
+                        i += 3;
+                        break;
+                    case "\\alternative":
+                        AlternativeExpression alternativeExpression = new AlternativeExpression();
+
+                        sections.Peek()?.ChildExpressions.Add(alternativeExpression);
+                        sections.Push(alternativeExpression);
+
+                        context.InAlternative = true;
+                        i++;
+                        break;
                     case "\\clef":
                         sections.Peek().ChildExpressions.Add(new ClefExpression(lilypondText[i + 1]));
                         i++;
                         break;
                     case "\\tempo":
-                        sections.Peek().ChildExpressions.Add(new TempoExpression(lilypondText[i + 3]));
-                        i += 3;
+                        sections.Peek().ChildExpressions.Add(new TempoExpression(lilypondText[i + 1]));
+                        i += 1;
                         break;
                     case "\\time":
                         sections.Peek().ChildExpressions.Add(new TimeSignatureExpression(lilypondText[i + 1]));
                         i++;
                         break;
-                    // Section has ended. It is no longer the current section, so pop it from the stack
-                    case "}": sections.Pop(); break;
+                    case "{":
+                        if (context.InAlternative)
+                        {
+
+                        }
+                        break;
+                    case "}": // Section has ended. It is no longer the current section, so pop it from the stack
+                        if (context.InAlternative)
+                        {
+                            context.InAlternative = false;
+                        }
+                        sections.Pop();
+                        break;
                     case "|": sections.Peek().ChildExpressions.Add(new BarlineExpression()); break;
                     // It is a note
                     default: sections.Peek().ChildExpressions.Add(new NoteExpression(lilypondText[i])); break;
@@ -70,52 +98,6 @@ namespace DPA_Musicsheets.IO.Lilypond
                 context.Sequence.Symbols.Insert(0, new Clef(ClefType.GClef));
 
             Sequence = context.Sequence;
-        }
-
-        private static LinkedList<LilypondToken> GetTokensFromLilypond(string content)
-        {
-            LinkedList<LilypondToken> tokens = new LinkedList<LilypondToken>();
-
-            foreach (string s in content.Split(' ').Where(item => item.Length > 0))
-            {
-                LilypondToken token = new LilypondToken()
-                {
-                    Value = s
-                };
-
-                switch (s)
-                {
-                    case "\\relative": token.TokenKind = LilypondTokenKind.Staff; break;
-                    case "\\clef": token.TokenKind = LilypondTokenKind.Clef; break;
-                    case "\\time": token.TokenKind = LilypondTokenKind.Time; break;
-                    case "\\tempo": token.TokenKind = LilypondTokenKind.Tempo; break;
-                    case "\\repeat": token.TokenKind = LilypondTokenKind.Repeat; break;
-                    case "\\alternative": token.TokenKind = LilypondTokenKind.Alternative; break;
-                    case "{": token.TokenKind = LilypondTokenKind.SectionStart; break;
-                    case "}": token.TokenKind = LilypondTokenKind.SectionEnd; break;
-                    case "|": token.TokenKind = LilypondTokenKind.Bar; break;
-                    default: token.TokenKind = LilypondTokenKind.Unknown; break;
-                }
-
-                if (token.TokenKind == LilypondTokenKind.Unknown && new Regex(@"[~]?[a-g][,'eis]*[0-9]+[.]*").IsMatch(s))
-                {
-                    token.TokenKind = LilypondTokenKind.Note;
-                }
-                else if (token.TokenKind == LilypondTokenKind.Unknown && new Regex(@"r.*?[0-9][.]*").IsMatch(s))
-                {
-                    token.TokenKind = LilypondTokenKind.Rest;
-                }
-
-                if (tokens.Last != null)
-                {
-                    tokens.Last.Value.NextToken = token;
-                    token.PreviousToken = tokens.Last.Value;
-                }
-
-                tokens.AddLast(token);
-            }
-
-            return tokens;
         }
     }
 }

@@ -119,6 +119,8 @@
     <Compile Include="Domain\Rest.cs" />
     <Compile Include="Domain\TimeSignature.cs" />
     <Compile Include="IO\BarLineEvent.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\AlternativeExpression.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\AlternativeGroupExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\BarlineExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\ClefExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\Expression.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="IO\Lilypond\Interpreter\LilypondSection.cs" />
     <Compile Include="IO\Lilypond\Interpreter\NoteExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\RelativeExpression.cs" />
+    <Compile Include="IO\Lilypond\Interpreter\RepeatExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\TempoExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\TimeSignatureExpression.cs" />
     <Compile Include="IO\Lilypond\LilypondSequenceReader.cs" />

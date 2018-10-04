@@ -1,4 +1,6 @@
-﻿namespace DPA_Musicsheets.IO.Lilypond.Interpreter
+﻿using System.Linq;
+
+namespace DPA_Musicsheets.IO.Lilypond.Interpreter
 {
     public class TempoExpression : Expression
     {
@@ -6,7 +8,7 @@
 
         public TempoExpression(string expression)
         {
-            _bpm = int.Parse(expression);
+            _bpm = int.Parse(expression.Split('=').Last());
         }
 
         public override void Interpret(LilypondContext context)

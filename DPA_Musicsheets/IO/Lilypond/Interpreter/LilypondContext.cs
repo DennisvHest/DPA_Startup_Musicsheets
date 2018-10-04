@@ -11,6 +11,7 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
         public int? PreviousNotePitch { get; set; }
         public NoteTieType PreviousTieType { get; set; }
         public bool ClefAdded { get; set; }
+        public bool InAlternative { get; set; }
 
         public bool LinkingNote => PreviousTieType == NoteTieType.Start ||
                                    PreviousTieType == NoteTieType.StopAndStartAnother;

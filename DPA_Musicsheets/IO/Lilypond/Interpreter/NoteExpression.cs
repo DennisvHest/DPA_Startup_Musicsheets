@@ -21,7 +21,12 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
             _noteName = noteExpression[0];
 
             // Note/Rest length
-            _length = int.Parse(Regex.Match(noteExpression, @"\d+").Value);
+            if (!int.TryParse(Regex.Match(noteExpression, @"\d+").Value, out _length))
+            {
+                // No duration specified. Default is a half note.
+                _length = 2;
+            }
+            
 
             if (_noteName == 'r')
                 return; // Note is a Rest, we don't have to parse pitch, decorations, etc.

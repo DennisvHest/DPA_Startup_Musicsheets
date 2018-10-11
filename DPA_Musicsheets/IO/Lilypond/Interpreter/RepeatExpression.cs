@@ -6,12 +6,11 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
     {
         public override void Interpret(LilypondContext context)
         {
-            foreach (Expression expression in ChildExpressions)
-            {
-                expression.Interpret(context);
-            }
+            context.InRepeat = true;
 
-            context.Sequence.Symbols.Add(new Barline { RepeatType = RepeatType.Backward });
+            context.Sequence.Symbols.Add(new Barline() { RepeatType = RepeatType.Forward });
+
+            base.Interpret(context);
         }
     }
 }

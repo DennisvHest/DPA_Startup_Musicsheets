@@ -21,13 +21,10 @@
 
         public override void Interpret(LilypondContext context)
         {
-            context.RelativePitch = _startPitch;
+            context.PreviousNotePitch = _startPitch;
             context.CurrentOctave += _octaveChange;
 
-            foreach (Expression expression in ChildExpressions)
-            {
-                expression.Interpret(context);
-            }
+            base.Interpret(context);
         }
     }
 }

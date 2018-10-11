@@ -12,8 +12,8 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
         {
             uint[] timeSignature = timeSignatureExpression.Split('/').Select(uint.Parse).ToArray();
 
-            _beatUnit = timeSignature[0];
-            _beatsPerBar = timeSignature[1];
+            _beatUnit = timeSignature[1];
+            _beatsPerBar = timeSignature[0];
         }
 
         public override void Interpret(LilypondContext context)

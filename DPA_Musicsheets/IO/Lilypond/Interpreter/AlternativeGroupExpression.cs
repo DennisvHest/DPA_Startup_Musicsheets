@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DPA_Musicsheets.Domain;
+﻿using DPA_Musicsheets.Domain;
 
 namespace DPA_Musicsheets.IO.Lilypond.Interpreter
 {
@@ -11,12 +6,18 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
     {
         public override void Interpret(LilypondContext context)
         {
-            foreach (Expression expression in ChildExpressions)
-            {
-                expression.Interpret(context);
-            }
+            // The second alternative group has a backward repeat barline
+            RepeatType repeatType = context.CurrentAlternativeGroup == 2 ? RepeatType.Backward : RepeatType.None;
 
-            context.Sequence.Symbols.Add(new Barline());
+            context.Sequence.Symbols.Add(new Barline
+            {
+                AlternateRepeatGroup = context.CurrentAlternativeGroup,
+                RepeatType = repeatType
+            });
+
+            base.Interpret(context);
+
+            context.CurrentAlternativeGroup++;
         }
     }
 }

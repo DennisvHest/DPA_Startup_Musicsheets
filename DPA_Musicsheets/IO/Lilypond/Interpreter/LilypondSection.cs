@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 
 namespace DPA_Musicsheets.IO.Lilypond.Interpreter
 {
-    public abstract class LilypondSection : Expression
+    public class LilypondSection : Expression
     {
         public List<Expression> ChildExpressions { get; set; }
 
-        protected LilypondSection()
+        public LilypondSection()
         {
             ChildExpressions = new List<Expression>();
+        }
+
+        public override void Interpret(LilypondContext context)
+        {
+            foreach (Expression expression in ChildExpressions)
+            {
+                expression.Interpret(context);
+            }
         }
     }
 }

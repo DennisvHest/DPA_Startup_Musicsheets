@@ -76,13 +76,31 @@ namespace DPA_Musicsheets.IO.Lilypond
                     case "{":
                         if (context.InAlternative)
                         {
+                            // There is a new alternative group in the current alternative block
+                            AlternativeGroupExpression alternativeGroup = new AlternativeGroupExpression();
 
+                            sections.Peek()?.ChildExpressions.Add(alternativeGroup);
+                            sections.Push(alternativeGroup);
+
+                            context.InAlternativeGroup = true;
+                        }
+                        else
+                        {
+                            LilypondSection lilypondSection = new LilypondSection();
+
+                            sections.Peek()?.ChildExpressions.Add(lilypondSection);
+                            sections.Push(lilypondSection);
                         }
                         break;
                     case "}": // Section has ended. It is no longer the current section, so pop it from the stack
-                        if (context.InAlternative)
+                        if (context.InRepeat)
                         {
-                            context.InAlternative = false;
+                            if (lilypondText[i + 1] != "\\alternative")
+                            {
+                                sections.Peek().ChildExpressions.Add(new BarlineExpression(true));
+                            }
+
+                            context.InRepeat = false;
                         }
                         sections.Pop();
                         break;

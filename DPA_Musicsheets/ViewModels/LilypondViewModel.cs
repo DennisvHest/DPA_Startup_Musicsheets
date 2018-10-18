@@ -3,11 +3,14 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DPA_Musicsheets.Models;
 
 namespace DPA_Musicsheets.ViewModels
 {
@@ -16,6 +19,9 @@ namespace DPA_Musicsheets.ViewModels
         private MusicLoader _musicLoader;
         private MainViewModel _mainViewModel { get; set; }
 
+        private readonly LilypondOriginator _lilypondOriginator;
+        private readonly Stack<LilypondMemento> _undoMementos;
+        private readonly Stack<LilypondMemento> _redoMementos;
         private string _text;
         private string _previousText;
         private string _nextText;
@@ -26,15 +32,14 @@ namespace DPA_Musicsheets.ViewModels
         /// </summary>
         public string LilypondText
         {
-            get
-            {
-                return _text;
-            }
+            get => _text;
             set
             {
+                _lilypondOriginator.Text = _text;
                 if (!_waitingForRender && !_textChangedByLoad)
                 {
-                    _previousText = _text;
+                    _redoMementos.Clear();
+                    _undoMementos.Push(_lilypondOriginator.Save());
                 }
                 _text = value;
                 RaisePropertyChanged(() => LilypondText);
@@ -55,10 +60,16 @@ namespace DPA_Musicsheets.ViewModels
             _musicLoader.LilypondViewModel = this;
             
             _text = "Your lilypond text will appear here.";
+
+            _lilypondOriginator = new LilypondOriginator();
+            _undoMementos = new Stack<LilypondMemento>();
+            _redoMementos = new Stack<LilypondMemento>();
         }
 
         public void LilypondTextLoaded(string text)
         {
+            _undoMementos.Clear();
+            _redoMementos.Clear();
             _textChangedByLoad = true;
             LilypondText = _previousText = text;
             _textChangedByLoad = false;
@@ -70,42 +81,53 @@ namespace DPA_Musicsheets.ViewModels
         public ICommand TextChangedCommand => new RelayCommand<TextChangedEventArgs>((args) =>
         {
             // If we were typing, we need to do things.
-//            if (!_textChangedByLoad)
-//            {
-//                _waitingForRender = true;
-//                _lastChange = DateTime.Now;
-//
-//                _mainViewModel.CurrentState = "Rendering...";
-//
-//                Task.Delay(MILLISECONDS_BEFORE_CHANGE_HANDLED).ContinueWith((task) =>
-//                {
-//                    if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
-//                    {
-//                        _waitingForRender = false;
-//                        UndoCommand.RaiseCanExecuteChanged();
-//
-//                        _musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
-//                        _mainViewModel.CurrentState = "";
-//                    }
-//                }, TaskScheduler.FromCurrentSynchronizationContext()); // Request from main thread.
-//            }
+            if (!_textChangedByLoad)
+            {
+                _waitingForRender = true;
+                _lastChange = DateTime.Now;
+
+                _mainViewModel.CurrentState = "Rendering...";
+
+                Task.Delay(MILLISECONDS_BEFORE_CHANGE_HANDLED).ContinueWith((task) =>
+                {
+                    if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
+                    {
+                        _waitingForRender = false;
+                        UndoCommand.RaiseCanExecuteChanged();
+
+                        //_musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
+                        _mainViewModel.CurrentState = "";
+                    }
+                }, TaskScheduler.FromCurrentSynchronizationContext()); // Request from main thread.
+            }
         });
 
         #region Commands for buttons like Undo, Redo and SaveAs
         public RelayCommand UndoCommand => new RelayCommand(() =>
         {
-            _nextText = LilypondText;
-            LilypondText = _previousText;
-            _previousText = null;
-        }, () => _previousText != null && _previousText != LilypondText);
+            // Add current state to the redo mementos
+            _lilypondOriginator.Text = _text;
+            _redoMementos.Push(_lilypondOriginator.Save());
+
+            // Restore state from the undo mementos
+            LilypondMemento memento = _undoMementos.Pop();
+            _lilypondOriginator.Restore(memento);
+            _text = _lilypondOriginator.Text;
+            RaisePropertyChanged(() => LilypondText);
+        }, () => _undoMementos.Any());
 
         public RelayCommand RedoCommand => new RelayCommand(() =>
         {
-            _previousText = LilypondText;
-            LilypondText = _nextText;
-            _nextText = null;
-            RedoCommand.RaiseCanExecuteChanged();
-        }, () => _nextText != null && _nextText != LilypondText);
+            // Add current state to the undo mementos
+            _lilypondOriginator.Text = _text;
+            _undoMementos.Push(_lilypondOriginator.Save());
+
+            // Restore state from the redo mementos
+            LilypondMemento memento = _redoMementos.Pop();
+            _lilypondOriginator.Restore(memento);
+            _text = _lilypondOriginator.Text;
+            RaisePropertyChanged(() => LilypondText);
+        }, () => _redoMementos.Any());
 
         public ICommand SaveAsCommand => new RelayCommand(() =>
         {

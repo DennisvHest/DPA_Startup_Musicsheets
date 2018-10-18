@@ -149,6 +149,8 @@
     <Compile Include="Managers\PsamStaffBuilder.cs" />
     <Compile Include="Managers\StaffBuilder.cs" />
     <Compile Include="Managers\StaffLoader.cs" />
+    <Compile Include="Models\LilypondMemento.cs" />
+    <Compile Include="Models\LilypondOriginator.cs" />
     <Compile Include="Models\LilypondToken.cs" />
     <Compile Include="Models\LilypondTokenKind.cs" />
     <Compile Include="ViewModels\MidiPlayerViewModel.cs" />

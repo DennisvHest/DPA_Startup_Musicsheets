@@ -41,7 +41,9 @@ namespace DPA_Musicsheets.ViewModels
                     _redoMementos.Clear();
                     _undoMementos.Push(_lilypondOriginator.Save());
                 }
+
                 _text = value;
+
                 RaisePropertyChanged(() => LilypondText);
             }
         }
@@ -86,17 +88,17 @@ namespace DPA_Musicsheets.ViewModels
                 _waitingForRender = true;
                 _lastChange = DateTime.Now;
 
-                _mainViewModel.CurrentState = "Rendering...";
+                _mainViewModel.CurrentState.TextChanged();
 
                 Task.Delay(MILLISECONDS_BEFORE_CHANGE_HANDLED).ContinueWith((task) =>
                 {
                     if ((DateTime.Now - _lastChange).TotalMilliseconds >= MILLISECONDS_BEFORE_CHANGE_HANDLED)
                     {
                         _waitingForRender = false;
+                        _mainViewModel.CurrentState.RenderingFinished();
                         UndoCommand.RaiseCanExecuteChanged();
 
-                        //_musicLoader.LoadLilypondIntoWpfStaffsAndMidi(LilypondText);
-                        _mainViewModel.CurrentState = "";
+                        _musicLoader.LoadLilyPond(LilypondText);
                     }
                 }, TaskScheduler.FromCurrentSynchronizationContext()); // Request from main thread.
             }
@@ -140,14 +142,17 @@ namespace DPA_Musicsheets.ViewModels
                 if (extension.EndsWith(".mid"))
                 {
                     _musicLoader.SaveToMidi(saveFileDialog.FileName);
+                    _mainViewModel.CurrentState.Save();
                 }
                 else if (extension.EndsWith(".ly"))
                 {
                     _musicLoader.SaveToLilypond(saveFileDialog.FileName);
+                    _mainViewModel.CurrentState.Save();
                 }
                 else if (extension.EndsWith(".pdf"))
                 {
                     _musicLoader.SaveToPDF(saveFileDialog.FileName);
+                    _mainViewModel.CurrentState.Save();
                 }
                 else
                 {

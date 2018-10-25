@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using DPA_Musicsheets.Domain;
 using DPA_Musicsheets.IO.Lilypond.Interpreter;
-using DPA_Musicsheets.Models;
 
 namespace DPA_Musicsheets.IO.Lilypond
 {
@@ -14,15 +9,9 @@ namespace DPA_Musicsheets.IO.Lilypond
     {
         public static List<char> NotesOrder = new List<char> { 'c', 'd', 'e', 'f', 'g', 'a', 'b' };
 
-        public LilypondSequenceReader(string fileName)
+        public LilypondSequenceReader(string lilyContent)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (string line in File.ReadAllLines(fileName))
-            {
-                sb.AppendLine(line);
-            }
-
-            string[] lilypondText = sb.ToString().Split().Where(item => item.Length > 0).ToArray();
+            string[] lilypondText = lilyContent.Split().Where(item => item.Length > 0).ToArray();
 
             LilypondContext context = new LilypondContext();
             Stack<LilypondSection> sections = new Stack<LilypondSection>();

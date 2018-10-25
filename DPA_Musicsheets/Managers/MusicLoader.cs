@@ -51,6 +51,7 @@ namespace DPA_Musicsheets.Managers
         public LilypondViewModel LilypondViewModel { get; set; }
         public MidiPlayerViewModel MidiPlayerViewModel { get; set; }
         public StaffsViewModel StaffsViewModel { get; set; }
+        public MusicalSequence Sequence { get; set; }
 
         /// <summary>
         /// Opens a file.
@@ -61,19 +62,15 @@ namespace DPA_Musicsheets.Managers
         /// <param name="fileName"></param>
         public void OpenFile(string fileName)
         {
-            MusicalSequence sequence = null;
-
             if (Path.GetExtension(fileName).EndsWith(".mid"))
             {
                 SequenceReader midiReader = new MidiSequenceReader(fileName);
-                sequence = midiReader.Sequence;
+                Sequence = midiReader.Sequence;
 
                 MidiSequence = new Sequence();
                 MidiSequence.Load(fileName);
 
                 MidiPlayerViewModel.MidiSequence = MidiSequence;
-                this.LilypondText = LoadMidiIntoLilypond(MidiSequence);
-                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
@@ -82,18 +79,17 @@ namespace DPA_Musicsheets.Managers
                 {
                     sb.AppendLine(line);
                 }
-                
-                this.LilypondText = sb.ToString();
-                this.LilypondViewModel.LilypondTextLoaded(this.LilypondText);
-                SequenceReader lilyReader = new LilypondSequenceReader(fileName);
-                sequence = lilyReader.Sequence;
+
+                LoadLilyPond(sb.ToString());
+
+                LilypondViewModel.LilypondTextLoaded(sb.ToString());
             }
             else
             {
                 throw new NotSupportedException($"File extension {Path.GetExtension(fileName)} is not supported.");
             }
 
-            LoadLilypondIntoWpfStaffsAndMidi(LilypondText, sequence);
+            LoadStaffsAndMidi();
         }
 
 
@@ -102,21 +98,32 @@ namespace DPA_Musicsheets.Managers
         /// This creates WPF staffs and MIDI from Lilypond.
         /// </summary>
         /// <param name="content"></param>
-        public void LoadLilypondIntoWpfStaffsAndMidi(string content, MusicalSequence sequence)
+        public void LoadStaffsAndMidi()
         {
             WPFStaffs.Clear();
 
             StaffBuilder staffBuilder = new PsamStaffBuilder();
             StaffLoader staffLoader = new StaffLoader(staffBuilder);
 
-            staffLoader.LoadStaffs(sequence.Symbols);
+            staffLoader.LoadStaffs(Sequence.Symbols);
 
             //WPFStaffs.AddRange(GetStaffsFromTokens(tokens));
             WPFStaffs.AddRange(staffLoader.Symbols);
             this.StaffsViewModel.SetStaffs(this.WPFStaffs);
 
-//            MidiSequence = GetSequenceFromWPFStaffs();
-//            MidiPlayerViewModel.MidiSequence = MidiSequence;
+            //            MidiSequence = GetSequenceFromWPFStaffs();
+            //            MidiPlayerViewModel.MidiSequence = MidiSequence;
+        }
+
+        public void LoadLilyPond(string lilyContent)
+        {
+            try
+            {
+                SequenceReader lilyReader = new LilypondSequenceReader(lilyContent);
+                Sequence = lilyReader.Sequence;
+                LoadStaffsAndMidi();
+            }
+            catch (Exception){ }            
         }
 
         #region Midi loading (loads midi to lilypond)

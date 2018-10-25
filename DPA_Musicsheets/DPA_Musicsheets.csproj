@@ -132,6 +132,7 @@
     <Compile Include="IO\Lilypond\Interpreter\TempoExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\TimeSignatureExpression.cs" />
     <Compile Include="IO\Lilypond\LilypondSequenceReader.cs" />
+    <Compile Include="IO\Lilypond\Writer\LilypondSequenceWriter.cs" />
     <Compile Include="IO\Midi\MidiBarLineEvent.cs" />
     <Compile Include="IO\Midi\MidiNoteEvent.cs" />
     <Compile Include="IO\Midi\MidiSequenceReader.cs" />
@@ -149,10 +150,14 @@
     <Compile Include="Managers\PsamStaffBuilder.cs" />
     <Compile Include="Managers\StaffBuilder.cs" />
     <Compile Include="Managers\StaffLoader.cs" />
+    <Compile Include="Models\Changed.cs" />
+    <Compile Include="Models\EditorState.cs" />
     <Compile Include="Models\LilypondMemento.cs" />
     <Compile Include="Models\LilypondOriginator.cs" />
     <Compile Include="Models\LilypondToken.cs" />
     <Compile Include="Models\LilypondTokenKind.cs" />
+    <Compile Include="Models\Rendering.cs" />
+    <Compile Include="Models\Saved.cs" />
     <Compile Include="ViewModels\MidiPlayerViewModel.cs" />
     <Compile Include="ViewModels\StaffsViewModel.cs" />
     <Compile Include="Views\MidiPlayerCtrl.xaml.cs">
@@ -272,6 +277,7 @@
     <Content Include="Files\Eenvoudige voorbeeldfiles\Rusten.ly" />
     <Content Include="Files\Eenvoudige voorbeeldfiles\Standaard_noten.ly" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

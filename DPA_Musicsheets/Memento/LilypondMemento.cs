@@ -1,4 +1,4 @@
-﻿namespace DPA_Musicsheets.Models {
+﻿namespace DPA_Musicsheets.Memento {
 
     public class LilypondMemento {
 

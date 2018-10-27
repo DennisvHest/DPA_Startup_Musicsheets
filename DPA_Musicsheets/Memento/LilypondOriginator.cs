@@ -1,6 +1,8 @@
-﻿namespace DPA_Musicsheets.Models {
+﻿namespace DPA_Musicsheets.Memento
+{
 
-    public class LilypondOriginator {
+    public class LilypondOriginator
+    {
 
         public string Text { get; set; }
 

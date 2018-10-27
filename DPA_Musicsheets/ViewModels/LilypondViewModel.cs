@@ -4,12 +4,16 @@ using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DPA_Musicsheets.Hotkeys.Commands;
+using DPA_Musicsheets.Hotkeys.KeyHandlers;
+using DPA_Musicsheets.Memento;
 using DPA_Musicsheets.Models;
 
 namespace DPA_Musicsheets.ViewModels
@@ -23,8 +27,13 @@ namespace DPA_Musicsheets.ViewModels
         private readonly Stack<LilypondMemento> _undoMementos;
         private readonly Stack<LilypondMemento> _redoMementos;
         private string _text;
-        private string _previousText;
-        private string _nextText;
+        public int CaretIndex { get; private set; }
+
+        private readonly List<Key> _pressedKeys;
+        private readonly IKeyHandlerChain _keyHandlerChain;
+
+        private readonly Dictionary<string, ILilyEditorCommand> _commands;
+        private ILilyEditorCommand _currentCommand;
 
         /// <summary>
         /// This text will be in the textbox.
@@ -60,7 +69,31 @@ namespace DPA_Musicsheets.ViewModels
             _mainViewModel = mainViewModel;
             _musicLoader = musicLoader;
             _musicLoader.LilypondViewModel = this;
-            
+
+            _pressedKeys = new List<Key>();
+
+            _keyHandlerChain = new CommandKeyHandler();
+            RegularKeyHandler keyHandlerChain2 = new RegularKeyHandler();
+            RegularKeyHandler keyHandlerChain3 = new RegularKeyHandler();
+            _keyHandlerChain.Next = keyHandlerChain2;
+            keyHandlerChain2.Next = keyHandlerChain3;
+
+            _commands = new Dictionary<string, ILilyEditorCommand>();
+            ILilyEditorCommand saveCommand = new SaveAsLilyCommand();
+            _commands.Add(saveCommand.Pattern, saveCommand);
+            ILilyEditorCommand saveasPdfCommand = new SaveAsPdfCommand();
+            _commands.Add(saveasPdfCommand.Pattern, saveasPdfCommand);
+            ILilyEditorCommand addClefCommand = new AddCleffCommand();
+            _commands.Add(addClefCommand.Pattern, addClefCommand);
+            ILilyEditorCommand addTempoCommand = new AddTempoCommand();
+            _commands.Add(addTempoCommand.Pattern, addTempoCommand);
+            ILilyEditorCommand add44TimeCommand = new AddTimeCommand(4, 4);
+            _commands.Add(add44TimeCommand.Pattern, add44TimeCommand);
+            ILilyEditorCommand add34TimeCommand = new AddTimeCommand(3, 4);
+            _commands.Add(add34TimeCommand.Pattern, add34TimeCommand);
+            ILilyEditorCommand add68TimeCommand = new AddTimeCommand(6, 8);
+            _commands.Add(add68TimeCommand.Pattern, add68TimeCommand);
+
             _text = "Your lilypond text will appear here.";
 
             _lilypondOriginator = new LilypondOriginator();
@@ -73,7 +106,7 @@ namespace DPA_Musicsheets.ViewModels
             _undoMementos.Clear();
             _redoMementos.Clear();
             _textChangedByLoad = true;
-            LilypondText = _previousText = text;
+            LilypondText = text;
             _textChangedByLoad = false;
         }
 
@@ -131,11 +164,11 @@ namespace DPA_Musicsheets.ViewModels
             RaisePropertyChanged(() => LilypondText);
         }, () => _redoMementos.Any());
 
-        public ICommand SaveAsCommand => new RelayCommand(() =>
+        public ICommand SaveAsCommand => new RelayCommand<string>((saveTypes) =>
         {
-            // TODO: In the application a lot of classes know which filetypes are supported. Lots and lots of repeated code here...
-            // Can this be done better?
-            SaveFileDialog saveFileDialog = new SaveFileDialog() { Filter = "Midi|*.mid|Lilypond|*.ly|PDF|*.pdf" };
+            string filter = saveTypes ?? "Midi|*.mid|Lilypond|*.ly|PDF|*.pdf";
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog() { Filter = filter };
             if (saveFileDialog.ShowDialog() == true)
             {
                 string extension = Path.GetExtension(saveFileDialog.FileName);
@@ -161,5 +194,38 @@ namespace DPA_Musicsheets.ViewModels
             }
         });
         #endregion Commands for buttons like Undo, Redo and SaveAs
+
+        public ICommand OnKeyDownCommand => new RelayCommand<KeyEventArgs>((e) =>
+        {
+            _pressedKeys.Add(e.Key);
+
+            string command = _keyHandlerChain.Handle(new List<Key>(_pressedKeys));
+            Debug.WriteLine(command);
+
+            if (_commands.ContainsKey(command ?? ""))
+            {
+                _currentCommand = _commands[command];
+            }
+        });
+
+        public ICommand OnKeyUpCommand => new RelayCommand<KeyEventArgs>((e) =>
+        {
+            if (_currentCommand != null)
+            {
+                _currentCommand.Execute(this);
+                _pressedKeys.Clear();
+                _currentCommand = null;
+            }
+            else
+            {
+                _pressedKeys.RemoveAll((k) => k == e.Key);
+            }
+        });
+
+        public ICommand SelectionChangedCommand => new RelayCommand<RoutedEventArgs>((e) =>
+        {
+            TextBox textBox = e.Source as TextBox;
+            CaretIndex = textBox.CaretIndex;
+        });
     }
 }

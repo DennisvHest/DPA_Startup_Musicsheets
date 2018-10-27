@@ -29,6 +29,12 @@
                 <i:EventTrigger EventName="TextChanged" >
                     <command:EventToCommand Command="{Binding TextChangedCommand}" PassEventArgsToCommand="True"  />
                 </i:EventTrigger>
+                <i:EventTrigger EventName="KeyDown" >
+                    <command:EventToCommand Command="{Binding OnKeyDownCommand}" PassEventArgsToCommand="True"  />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="KeyUp" >
+                    <command:EventToCommand Command="{Binding OnKeyUpCommand}" PassEventArgsToCommand="True"  />
+                </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
     </Grid>

@@ -47,7 +47,6 @@ namespace DPA_Musicsheets.Managers
         private int _bpm = 120;       // Aantal beatnotes per minute.
         private int _beatsPerBar;     // Aantal beatnotes per maat.
 
-        public MainViewModel MainViewModel { get; set; }
         public LilypondViewModel LilypondViewModel { get; set; }
         public MidiPlayerViewModel MidiPlayerViewModel { get; set; }
         public StaffsViewModel StaffsViewModel { get; set; }
@@ -70,7 +69,7 @@ namespace DPA_Musicsheets.Managers
                 MidiSequence = new Sequence();
                 MidiSequence.Load(fileName);
 
-                MidiPlayerViewModel.MidiSequence = MidiSequence;
+                LilypondViewModel.LilypondTextLoaded(LoadMidiIntoLilypond(MidiSequence));
             }
             else if (Path.GetExtension(fileName).EndsWith(".ly"))
             {
@@ -107,12 +106,11 @@ namespace DPA_Musicsheets.Managers
 
             staffLoader.LoadStaffs(Sequence.Symbols);
 
-            //WPFStaffs.AddRange(GetStaffsFromTokens(tokens));
             WPFStaffs.AddRange(staffLoader.Symbols);
             this.StaffsViewModel.SetStaffs(this.WPFStaffs);
 
-            //            MidiSequence = GetSequenceFromWPFStaffs();
-            //            MidiPlayerViewModel.MidiSequence = MidiSequence;
+            MidiSequence = GetSequenceFromWPFStaffs();
+            MidiPlayerViewModel.MidiSequence = MidiSequence;
         }
 
         public void LoadLilyPond(string lilyContent)

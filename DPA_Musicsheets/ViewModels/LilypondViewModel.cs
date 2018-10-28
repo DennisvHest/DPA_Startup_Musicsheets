@@ -200,7 +200,6 @@ namespace DPA_Musicsheets.ViewModels
             _pressedKeys.Add(e.Key);
 
             string command = _keyHandlerChain.Handle(new List<Key>(_pressedKeys));
-            Debug.WriteLine(command);
 
             if (_commands.ContainsKey(command ?? ""))
             {

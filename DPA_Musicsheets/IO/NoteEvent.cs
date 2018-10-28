@@ -9,6 +9,6 @@ namespace DPA_Musicsheets.IO
 {
     public interface INoteEvent
     {
-        Note Note { get; }
+        INote Note { get; }
     }
 }

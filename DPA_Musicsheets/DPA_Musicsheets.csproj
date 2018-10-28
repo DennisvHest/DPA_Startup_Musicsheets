@@ -123,6 +123,7 @@
     <Compile Include="Hotkeys\Commands\AddTimeCommand.cs" />
     <Compile Include="Hotkeys\Commands\EditorCommand.cs" />
     <Compile Include="Hotkeys\Commands\LilyEditorCommand.cs" />
+    <Compile Include="Hotkeys\Commands\OpenFileCommand.cs" />
     <Compile Include="Hotkeys\Commands\SaveAsLilyCommand.cs" />
     <Compile Include="Hotkeys\Commands\SaveAsPdfCommand.cs" />
     <Compile Include="Hotkeys\KeyHandlers\CommandKeyHandler.cs" />

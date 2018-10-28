@@ -6,8 +6,13 @@
 
         public char NoteName => Note.NoteName;
         public virtual int NoteAlteration => 0;
-        public int MidiPitch => Note.MidiPitch;
-        public MusicalSymbolDuration Duration => Note.Duration;
+        public int Pitch => Note.Pitch;
+        public MusicalSymbolDuration Duration
+        {
+            get => Note.Duration;
+            set => Note.Duration = value;
+        }
+
         public virtual int Dots => 0;
         public NoteTieType NoteTieType => Note.NoteTieType;
     }

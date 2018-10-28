@@ -14,20 +14,19 @@ namespace DPA_Musicsheets.IO.Midi
             midiSequence.Load(fileName);
 
             int division = midiSequence.Division;
-            Note previousNote = null;
+            INote previousNote = null;
             int previousNoteAbsoluteTicks = 0;
             double percentageOfBarReached = 0;
             bool startedNoteIsClosed = true;
             TimeSignature previousTimeSignature = null;
 
+            Sequence.Symbols.Add(new Clef(ClefType.GClef));
+
             foreach (Track track in midiSequence)
             {
-                foreach (var midiEvent in track.Iterator())
+                foreach (MidiEvent midiEvent in track.Iterator())
                 {
                     IMidiMessage midiMessage = midiEvent.MidiMessage;
-                    // TODO: Split this switch statements and create separate logic.
-                    // We want to split this so that we can expand our functionality later with new keywords for example.
-                    // Hint: Command pattern? Strategies? Factory method?
                     switch (midiMessage.MessageType)
                     {
                         case MessageType.Meta:
@@ -52,7 +51,7 @@ namespace DPA_Musicsheets.IO.Midi
                             if (channelMessage.Command == ChannelCommand.NoteOn)
                             {
                                 INoteEvent noteEvent = new MidiNoteEvent(channelMessage);
-                                Note note = noteEvent.Note;
+                                INote note = noteEvent.Note;
 
                                 if (note != null)
                                 {

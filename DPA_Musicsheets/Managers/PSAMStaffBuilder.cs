@@ -32,7 +32,7 @@ namespace DPA_Musicsheets.Managers
 
         public override void AddSymbol(INote note)
         {
-            int octave = note.MidiPitch / 12 - 1;
+            int octave = note.Pitch / 12 - 1;
 
             Note staffNote = new Note(note.NoteName.ToString().ToUpper(),
                 note.NoteAlteration, octave, (MusicalSymbolDuration)note.Duration, NoteStemDirection.Up,

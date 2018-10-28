@@ -12,15 +12,15 @@ namespace DPA_Musicsheets.IO.Midi
     {
         public Barline BarLine { get; }
 
-        public MidiBarLineEvent(MidiEvent barLineEvent, Note previousNote, ref bool startedNoteIsClosed, ref int previousNoteAbsoluteTicks, int division, TimeSignature timeSignature,
+        public MidiBarLineEvent(MidiEvent barLineEvent, INote previousNote, ref bool startedNoteIsClosed, ref int previousNoteAbsoluteTicks, int division, TimeSignature timeSignature,
             ref double percentageOfBarReached)
         {
             if (startedNoteIsClosed) return;
 
             // Finish the previous note with the length.
-            previousNote.Duration = GetNoteLength(previousNoteAbsoluteTicks,
+            SetNoteLength(previousNoteAbsoluteTicks,
                 barLineEvent.AbsoluteTicks, division, timeSignature.BeatUnit,
-                timeSignature.BeatsPerBar, out double percentageOfBar);
+                timeSignature.BeatsPerBar, out double percentageOfBar, previousNote);
             previousNoteAbsoluteTicks = barLineEvent.AbsoluteTicks;
 
             percentageOfBarReached += percentageOfBar;
@@ -32,8 +32,8 @@ namespace DPA_Musicsheets.IO.Midi
             startedNoteIsClosed = true;
         }
 
-        private MusicalSymbolDuration GetNoteLength(int absoluteTicks, int nextNoteAbsoluteTicks, int division, uint beatNote, uint beatsPerBar,
-            out double percentageOfBar)
+        private void SetNoteLength(int absoluteTicks, int nextNoteAbsoluteTicks, int division, uint beatNote, uint beatsPerBar,
+            out double percentageOfBar, INote previousNote)
         {
             int duration = 0;
             int dots = 0;
@@ -43,7 +43,8 @@ namespace DPA_Musicsheets.IO.Midi
             if (deltaTicks <= 0)
             {
                 percentageOfBar = 0;
-                return 0;
+                previousNote.Duration = 0;
+                return;
             }
 
             double percentageOfBeatNote = deltaTicks / division;
@@ -92,7 +93,9 @@ namespace DPA_Musicsheets.IO.Midi
                         if (currentTime <= (noteLength - subtractDuration))
                         {
                             dots++;
+                            previousNote = new Dot { Note = previousNote };
                         }
+
                         if (dots >= 4) break;
                     }
 
@@ -100,7 +103,7 @@ namespace DPA_Musicsheets.IO.Midi
                 }
             }
 
-            return (MusicalSymbolDuration)duration;
+            previousNote.Duration = (MusicalSymbolDuration)duration;
         }
     }
 }

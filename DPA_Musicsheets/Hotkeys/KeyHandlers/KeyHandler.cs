@@ -18,6 +18,7 @@ namespace DPA_Musicsheets.Hotkeys.KeyHandlers
         {
             { "CTRL+S", "saveAsLily" },
             { "CTRL+S+P", "saveAsPdf" },
+            { "CTRL+O", "openFile" },
             { "CTRL+L", "addClef" },
             { "CTRL+M", "addTempo" },
             { "CTRL+T", "add44Time" },
@@ -33,12 +34,12 @@ namespace DPA_Musicsheets.Hotkeys.KeyHandlers
             string keyCombo = TryHandle(keys);
 
             if (Commands.ContainsKey(keyCombo))
-                return Commands[keyCombo];
-
-            if (string.IsNullOrEmpty(keyCombo))
-                return Next?.Handle(keys);
+                return Commands[keyCombo]; // Found a valid command
 
             string nextKey = Next?.Handle(keys);
+
+            if (string.IsNullOrEmpty(keyCombo))
+                return nextKey;
 
             if (string.IsNullOrEmpty(nextKey))
             {

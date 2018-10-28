@@ -122,7 +122,7 @@ namespace DPA_Musicsheets.IO.Lilypond.Interpreter
             INote note = new Note
             {
                 NoteName = _noteName,
-                MidiPitch = _notePitch + context.CurrentOctave * 12,
+                Pitch = _notePitch + context.CurrentOctave * 12,
                 Duration = (MusicalSymbolDuration)_length,
                 NoteTieType = tieType
             };

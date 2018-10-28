@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DPA_Musicsheets.Domain;
 using DPA_Musicsheets.IO.Lilypond.Interpreter;
@@ -7,8 +8,6 @@ namespace DPA_Musicsheets.IO.Lilypond
 {
     public class LilypondSequenceReader : SequenceReader
     {
-        public static List<char> NotesOrder = new List<char> { 'c', 'd', 'e', 'f', 'g', 'a', 'b' };
-
         public LilypondSequenceReader(string lilyContent)
         {
             string[] lilypondText = lilyContent.Split().Where(item => item.Length > 0).ToArray();
@@ -77,8 +76,11 @@ namespace DPA_Musicsheets.IO.Lilypond
                         {
                             LilypondSection lilypondSection = new LilypondSection();
 
-                            sections.Peek()?.ChildExpressions.Add(lilypondSection);
-                            sections.Push(lilypondSection);
+                            if (sections.Any())
+                            {
+                                sections.Peek()?.ChildExpressions.Add(lilypondSection);
+                                sections.Push(lilypondSection);
+                            }
                         }
                         break;
                     case "}": // Section has ended. It is no longer the current section, so pop it from the stack
@@ -91,11 +93,20 @@ namespace DPA_Musicsheets.IO.Lilypond
 
                             context.InRepeat = false;
                         }
-                        sections.Pop();
+                        if (sections.Any()) sections.Pop();
                         break;
                     case "|": sections.Peek().ChildExpressions.Add(new BarlineExpression()); break;
-                    // It is a note
-                    default: sections.Peek().ChildExpressions.Add(new NoteExpression(lilypondText[i])); break;
+                    // It is a note or an unknown token
+                    default:
+                        try
+                        {
+                            sections.Peek().ChildExpressions.Add(new NoteExpression(lilypondText[i]));
+                            break;
+                        }
+                        catch (Exception)
+                        {
+                            /* It is an unknown token, skip it. */ break;
+                        }
                 }
             }
 

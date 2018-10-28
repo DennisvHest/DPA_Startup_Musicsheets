@@ -1,8 +1,5 @@
-﻿
-using DPA_Musicsheets.Models;
-using DPA_Musicsheets.ViewModels;
+﻿using DPA_Musicsheets.ViewModels;
 using PSAMControlLibrary;
-using PSAMWPFControlLibrary;
 using Sanford.Multimedia.Midi;
 using System;
 using System.Collections.Generic;
@@ -10,22 +7,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using DPA_Musicsheets.Domain;
 using DPA_Musicsheets.IO;
 using DPA_Musicsheets.IO.Lilypond;
 using DPA_Musicsheets.IO.Midi;
-using Barline = PSAMControlLibrary.Barline;
-using Clef = PSAMControlLibrary.Clef;
-using ClefType = PSAMControlLibrary.ClefType;
 using IMidiMessage = Sanford.Multimedia.Midi.IMidiMessage;
 using MusicalSymbol = PSAMControlLibrary.MusicalSymbol;
-using MusicalSymbolDuration = PSAMControlLibrary.MusicalSymbolDuration;
 using Note = PSAMControlLibrary.Note;
-using NoteTieType = PSAMControlLibrary.NoteTieType;
-using Rest = PSAMControlLibrary.Rest;
-using TimeSignature = PSAMControlLibrary.TimeSignature;
 
 namespace DPA_Musicsheets.Managers
 {
@@ -37,7 +25,6 @@ namespace DPA_Musicsheets.Managers
     public class MusicLoader
     {
         #region Properties
-        public string LilypondText { get; set; }
         public List<MusicalSymbol> WPFStaffs { get; set; } = new List<MusicalSymbol>();
 
         public Sequence MidiSequence { get; set; }
@@ -348,7 +335,7 @@ namespace DPA_Musicsheets.Managers
         {
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
-                outputFile.Write(LilypondText);
+                outputFile.Write(LilypondViewModel.LilypondText);
                 outputFile.Close();
             }
         }

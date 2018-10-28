@@ -4,8 +4,8 @@
     {
         char NoteName { get; }
         int NoteAlteration { get; }
-        int MidiPitch { get; }
-        MusicalSymbolDuration Duration { get; }
+        int Pitch { get; }
+        MusicalSymbolDuration Duration { get; set; }
         int Dots { get; }
         NoteTieType NoteTieType { get; }
     }
@@ -17,6 +17,6 @@
         public int Dots => 0;
         public NoteTieType NoteTieType { get; set; }
         public int NoteAlteration => 0;
-        public int MidiPitch { get; set; }
+        public int Pitch { get; set; }
     }
 }

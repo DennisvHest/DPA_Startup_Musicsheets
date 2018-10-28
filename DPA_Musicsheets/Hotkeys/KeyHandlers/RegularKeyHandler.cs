@@ -8,6 +8,7 @@ namespace DPA_Musicsheets.Hotkeys.KeyHandlers
         private static readonly Dictionary<Key, string> _keys = new Dictionary<Key, string>
         {
             { Key.S, "S" },
+            { Key.O, "O" },
             { Key.P, "P" },
             { Key.M, "M" },
             { Key.T, "T" },

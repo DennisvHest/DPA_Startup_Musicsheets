@@ -13,14 +13,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using DPA_Musicsheets.Hotkeys.Commands;
 using DPA_Musicsheets.Hotkeys.KeyHandlers;
 using DPA_Musicsheets.Models;
 
 namespace DPA_Musicsheets.ViewModels {
     public class MainViewModel : ViewModelBase
     {
-        private readonly ISet<Key> _pressedKeys;
+        private readonly List<Key> _pressedKeys;
         private readonly IKeyHandlerChain _keyHandlerChain;
+
+        private readonly Dictionary<string, IEditorCommand> _commands;
+        private IEditorCommand _currentCommand;
 
         private string _fileName;
         public string FileName {
@@ -48,13 +52,17 @@ namespace DPA_Musicsheets.ViewModels {
         public MainViewModel(MusicLoader musicLoader) {
             CurrentState = new Saved(this);
 
-            _pressedKeys = new SortedSet<Key>();
+            _pressedKeys = new List<Key>();
 
             _keyHandlerChain = new CommandKeyHandler();
             RegularKeyHandler keyHandlerChain2 = new RegularKeyHandler();
             RegularKeyHandler keyHandlerChain3 = new RegularKeyHandler();
             _keyHandlerChain.Next = keyHandlerChain2;
             keyHandlerChain2.Next = keyHandlerChain3;
+
+            _commands = new Dictionary<string, IEditorCommand>();
+            IEditorCommand saveCommand = new OpenFileCommand();
+            _commands.Add(saveCommand.Pattern, saveCommand);
 
             _musicLoader = musicLoader;
             FileName = @"Files/Alle-eendjes-zwemmen-in-het-water.mid";
@@ -79,11 +87,25 @@ namespace DPA_Musicsheets.ViewModels {
         public ICommand OnKeyDownCommand => new RelayCommand<KeyEventArgs>((e) => {
             _pressedKeys.Add(e.Key);
 
-            _keyHandlerChain.Handle(new List<Key>(_pressedKeys));
+            string command = _keyHandlerChain.Handle(new List<Key>(_pressedKeys));
+
+            if (_commands.ContainsKey(command ?? ""))
+            {
+                _currentCommand = _commands[command];
+            }
         });
 
         public ICommand OnKeyUpCommand => new RelayCommand<KeyEventArgs>((e) => {
-            _pressedKeys.Remove(e.Key);
+            if (_currentCommand != null)
+            {
+                _currentCommand.Execute(this);
+                _pressedKeys.Clear();
+                _currentCommand = null;
+            }
+            else
+            {
+                _pressedKeys.RemoveAll((k) => k == e.Key);
+            }
         });
 
         public ICommand OnWindowClosingCommand => new RelayCommand<CancelEventArgs>((e) => {

@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Interpreter pattern">
+    <Position X="6.198" Y="4.852" Height="0.577" Width="1.515" />
+  </Comment>
+  <Comment CommentText="State pattern">
+    <Position X="0.584" Y="12.373" Height="0.577" Width="1.515" />
+  </Comment>
+  <Comment CommentText="Factory method + strategy">
+    <Position X="0.558" Y="18.494" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Decorator pattern">
+    <Position X="18.837" Y="16.363" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Builder pattern">
+    <Position X="18.338" Y="21.549" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Chain of Responsibility pattern">
+    <Position X="25.985" Y="11" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Command pattern">
+    <Position X="24.141" Y="5.94" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Memento pattern">
+    <Position X="18.609" Y="8.405" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Domain classes">
+    <Position X="8.981" Y="21.212" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="DPA_Musicsheets.Domain.Barline">
+    <Position X="6.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Barline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.Clef">
+    <Position X="9" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Clef.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.Cross">
+    <Position X="18.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Cross.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.Dot">
+    <Position X="21" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Dot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.Mole">
+    <Position X="24" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Mole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.MusicalSequence">
+    <Position X="7.25" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\MusicalSequence.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Symbols" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.MusicalSymbol">
+    <Position X="11.25" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\MusicalSymbol.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.Note">
+    <Position X="15.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAACAAAAAAEAAAAAAAAAAAAAAABAAEAAAAE=</HashCode>
+      <FileName>Domain\Note.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.NoteDecoration">
+    <Position X="21" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAACAAAAAAEAAAAAAAAAAAAAAABAAEEAAAE=</HashCode>
+      <FileName>Domain\NoteDecoration.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Note" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.Rest">
+    <Position X="11.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Rest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Domain.TimeSignature">
+    <Position X="13.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Domain\TimeSignature.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.Changed">
+    <Position X="0.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>EditorState\Changed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.EditorState">
+    <Position X="2.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAIAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAIAAAAE=</HashCode>
+      <FileName>EditorState\EditorState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.Rendering">
+    <Position X="2.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>EditorState\Rendering.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Models.Saved">
+    <Position X="5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>EditorState\Saved.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.Commands.AddCleffCommand" BaseTypeListCollapsed="true">
+    <Position X="35.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\AddCleffCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.Commands.AddTempoCommand" BaseTypeListCollapsed="true">
+    <Position X="33.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\AddTempoCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.Commands.AddTimeCommand" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAQAAAAAAAAQAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\AddTimeCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.Commands.OpenFileCommand" BaseTypeListCollapsed="true">
+    <Position X="26.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\OpenFileCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.Commands.SaveAsLilyCommand" BaseTypeListCollapsed="true">
+    <Position X="32" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\SaveAsLilyCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.Commands.SaveAsPdfCommand" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\SaveAsPdfCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.KeyHandlers.CommandKeyHandler">
+    <Position X="26.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\KeyHandlers\CommandKeyHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.KeyHandlers.KeyHandler">
+    <Position X="28.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAgAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\KeyHandlers\KeyHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DPA_Musicsheets.Hotkeys.KeyHandlers.RegularKeyHandler">
+    <Position X="30" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\KeyHandlers\RegularKeyHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.SequenceReader">
+    <Position X="2.75" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>IO\SequenceReader.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sequence" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.AlternativeExpression">
+    <Position X="5.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\AlternativeExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.AlternativeGroupExpression">
+    <Position X="8" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\AlternativeGroupExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.BarlineExpression">
+    <Position X="2.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\BarlineExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.ClefExpression">
+    <Position X="5.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\ClefExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.Expression">
+    <Position X="8.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\Expression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.LilypondContext">
+    <Position X="8.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCEAQAAAAAAAAAAAAAAACAAAAAAkAAAAAAAAAAEKAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\LilypondContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.LilypondSection">
+    <Position X="8" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\LilypondSection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ChildExpressions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.NoteExpression">
+    <Position X="10.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAgAAAAAQAAAAAgAgABAAAAAAEAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\NoteExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.RelativeExpression">
+    <Position X="10.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAgAAAAAAAIAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\RelativeExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.RepeatExpression">
+    <Position X="12.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\RepeatExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.TempoExpression">
+    <Position X="12.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\TempoExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.Interpreter.TimeSignatureExpression">
+    <Position X="14.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\Interpreter\TimeSignatureExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Lilypond.LilypondSequenceReader">
+    <Position X="1" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Lilypond\LilypondSequenceReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.IO.Midi.MidiSequenceReader">
+    <Position X="4" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IO\Midi\MidiSequenceReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.PsamStaffBuilder">
+    <Position X="20.5" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Managers\PsamStaffBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.StaffBuilder">
+    <Position X="20.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Managers\StaffBuilder.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Symbols" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DPA_Musicsheets.Managers.StaffLoader">
+    <Position X="26.75" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\StaffLoader.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_staffBuilder" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DPA_Musicsheets.Memento.LilypondMemento">
+    <Position X="20.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Memento\LilypondMemento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DPA_Musicsheets.Memento.LilypondOriginator">
+    <Position X="20.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Memento\LilypondOriginator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSAMControlLibrary.MusicalSymbol" Collapsed="true">
+    <Position X="24" Y="21.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="DPA_Musicsheets.Domain.IMusicalSymbol">
+    <Position X="11.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\MusicalSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Domain.INote">
+    <Position X="11.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAACAAAAAAEAAAAAAAAAAAAAAABAAEAAAAE=</HashCode>
+      <FileName>Domain\Note.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Hotkeys.Commands.IEditorCommand">
+    <Position X="26.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\EditorCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Hotkeys.Commands.ILilyEditorCommand">
+    <Position X="32" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\Commands\LilyEditorCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DPA_Musicsheets.Hotkeys.KeyHandlers.IKeyHandlerChain">
+    <Position X="28.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Hotkeys\KeyHandlers\KeyHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

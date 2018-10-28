@@ -143,7 +143,6 @@
     <Compile Include="IO\Lilypond\Interpreter\TempoExpression.cs" />
     <Compile Include="IO\Lilypond\Interpreter\TimeSignatureExpression.cs" />
     <Compile Include="IO\Lilypond\LilypondSequenceReader.cs" />
-    <Compile Include="IO\Lilypond\Writer\LilypondSequenceWriter.cs" />
     <Compile Include="IO\Midi\MidiBarLineEvent.cs" />
     <Compile Include="IO\Midi\MidiNoteEvent.cs" />
     <Compile Include="IO\Midi\MidiSequenceReader.cs" />
@@ -226,7 +225,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagrams\CD_DPA_Musicsheets.cd" />
+    <None Include="ClassDiagrams\ClassDiagram.cd" />
     <None Include="Files\Eenvoudige voorbeeldfiles\Doorklinken.pdf" />
     <None Include="Files\Eenvoudige voorbeeldfiles\Keywords.pdf" />
     <None Include="Files\Eenvoudige voorbeeldfiles\Maatwissel.pdf" />
